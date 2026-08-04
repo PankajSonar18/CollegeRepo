@@ -40,7 +40,8 @@ for i in range(n):
 
 print("Members who borrowed no books:", zero_count)
 
-# 4. Find Mode (Most Frequent Borrow Count)
+# Find Mode (Most Frequent Borrow Count)
+
 mode = borrow[0]
 max_count = 0
 
@@ -55,4 +56,7 @@ for i in range(n):
         max_count = count
         mode = borrow[i]
 
-print("Most frequently borrowed count (Mode):", mode)
+if max_count == 1:
+    print("No book is borrowed frequently")
+else:
+    print("Most frequently borrowed count (Mode):", mode)                                                                                                                                                                   

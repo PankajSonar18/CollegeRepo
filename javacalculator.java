@@ -1,47 +1,74 @@
 import java.util.Scanner;
 
 public class javacalculator {
-    public static void main(String args[]) {
-        System.out.println("-----Java Calculator-----");
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        boolean again = true;
 
-        System.out.print("Enter first number: ");
-        float a = sc.nextFloat();
+        System.out.println("===== Java Calculator =====");
+        System.out.println("Supported operators: +, -, *, /, %, ^");
 
-        System.out.print("Enter operator: ");
-        char operator = sc.next().charAt(0);
+        while (again) {
+            try {
+                System.out.print("\nEnter first number: ");
+                double a = sc.nextDouble();
 
-        System.out.print("Enter second number: ");
-        float b = sc.nextFloat();
+                System.out.print("Enter operator: ");
+                String operator = sc.next();
 
-        switch (operator) {
-            case '+':
-                System.out.println("Addition: " + (a + b));
-                break;
-            case '-':
-                System.out.println("Subtraction: " + (a - b));
-                break;
-            case '*':
-                System.out.println("Multiplication: " + (a * b));
-                break;
-            case '/':
-                if (b != 0) {
-                    System.out.println("Division: " + (a / b));
-                } else {
-                    System.out.println("Error: Cannot divide by zero");
+                System.out.print("Enter second number: ");
+                double b = sc.nextDouble();
+
+                double result;
+
+                switch (operator) {
+                    case "+":
+                        result = a + b;
+                        break;
+                    case "-":
+                        result = a - b;
+                        break;
+                    case "*":
+                        result = a * b;
+                        break;
+                    case "/":
+                        if (b == 0) {
+                            System.out.println("Error: Cannot divide by zero.");
+                            continue;
+                        }
+                        result = a / b;
+                        break;
+                    case "%":
+                        if (b == 0) {
+                            System.out.println("Error: Cannot divide by zero.");
+                            continue;
+                        }
+                        result = a % b;
+                        break;
+                    case "^":
+                        result = Math.pow(a, b);
+                        break;
+                    default:
+                        System.out.println("Invalid operator. Please use +, -, *, /, %, or ^.");
+                        continue;
                 }
-                break;
-            case '%':
-                if (b != 0) {
-                    System.out.println("Modulus: " + (a % b));
+
+                if (Double.isFinite(result)) {
+                    System.out.println("Result: " + result);
                 } else {
-                    System.out.println("Error: Cannot divide by zero");
+                    System.out.println("Result is not a finite number.");
                 }
-                break;
-            default:
-                System.out.println("Enter valid operator");
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter numbers only.");
+                sc.nextLine();
+            }
+
+            System.out.print("\nDo you want to perform another calculation? (y/n): ");
+            String choice = sc.next().trim().toLowerCase();
+            again = choice.equals("y") || choice.equals("yes");
         }
 
-        sc.close(); // Closed scanner to prevent memory leaks
+        System.out.println("Thank you for using Java Calculator.");
+        sc.close();
     }
 }
